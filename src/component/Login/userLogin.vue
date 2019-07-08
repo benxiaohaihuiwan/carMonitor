@@ -7,25 +7,34 @@
     </div>
 
     <div class="loginForm">
-      <el-form ref="form" :model="loginForm" :rules="rules" class="login-Dialog">
+      <el-form ref="loginForm" :model="loginForm" class="login-Dialog">
         <p class="login-background"></p>
         <p
           style="font-size:25px;color:#006BFF;font-family: MicrosoftYaHei-Bold;
     font-weight: bold;    margin-top: 20px;
     margin-bottom: 20px;"
         >欢迎登陆</p>
-        <el-form-item prop="username">
+        <el-form-item prop="userName">
           <el-input
             v-model="loginForm.userName"
             prefix-icon="el-icon-s-custom"
             placeholder="请输入用户名"
           ></el-input>
         </el-form-item>
-        <el-form-item prop="password">
-          <el-input v-model="loginForm.passWord" prefix-icon="el-icon-lock" placeholder="请输入密码"></el-input>
+        <el-form-item prop="passWord">
+          <el-input
+            v-model="loginForm.password"
+            prefix-icon="el-icon-lock"
+            placeholder="请输入密码"
+            type="password"
+          ></el-input>
         </el-form-item>
         <div class="password">
-          <el-checkbox v-model="loginForm.login_password_state" style="font-size:16px">记住密码</el-checkbox>
+          <el-checkbox
+            v-model="login_password_state"
+            style="font-size:16px"
+            @change="loginPasswordRemember"
+          >记住密码</el-checkbox>
           <p class="forget-password">忘记密码</p>
         </div>
         <el-button type="primary" style="width:100%" @click="checkLogin">登陆</el-button>
@@ -40,21 +49,19 @@
 
 <script>
 import CompanyDesc from "../company-description.vue";
-
-import request from "../../utils/request"; //请求
 import requestUrl from "../../api/Waybill"; //接口统一处理
-
+import request from "../../utils/request";
 export default {
-  name: "Login",
+  name: "login",
   data() {
     return {
       description: "企业车辆运营平台",
       loginForm: {
         userName: "",
-        passWord: "",
-        login_password_state:
-          localStorage.getItem("loginPasswordState") === "true" ? true : false
-      }
+        password: ""
+      },
+      login_password_state:
+        localStorage.getItem("loginPasswordState") === "true" ? true : false
     };
   },
   components: {
@@ -63,20 +70,21 @@ export default {
   methods: {
     // 是否记住密码
     loginPasswordRemember: function() {
-      console.warn(this.login_password_state);
       if (this.login_password_state) {
         localStorage.setItem("loginFormUserName", this.loginForm.userName);
-        localStorage.setItem("loginFormPassWord", this.loginForm.passWord);
+        localStorage.setItem("loginFormPassWord", this.loginForm.password);
         localStorage.setItem("loginPasswordState", this.login_password_state);
       } else {
         localStorage.removeItem("loginFormUserName");
         localStorage.removeItem("loginFormPassWord");
+        localStorage.removeItem("loginPasswordState");
       }
     },
     // 登陆状态
-    checkLogin: function(params) {
+    checkLogin: function() {
+      console.log(this.loginForm);
       let that = this;
-      if (!this.loginForm.userName && !this.loginForm.passWord) {
+      if (!this.loginForm.userName && !this.loginForm.password) {
         this.$message({
           message: "请输入账号和密码",
           type: "warning"
@@ -87,43 +95,30 @@ export default {
           message: "请输入账号",
           type: "warning"
         });
-      } else if (!this.loginForm.passWord) {
+      } else if (!this.loginForm.password) {
         this.$message({
           message: "请输入密码",
           type: "warning"
         });
       } else {
         const url = requestUrl.login;
-        const params = this.loginForm;
-        request.post(url, params, "login").then(
+        const params = {};
+        params.requestBody = this.loginForm;
+
+        this.axios.post(url, params).then(
           res => {
-            this.loading = false;
-            request.requestResult(that, res, "open", "", () => {
+            request.requestResult(that, res.data, () => {
               if (res.data) {
-                this.loginPasswordRemember();
-                this.$router.push({
-                  path: "/Home"
-                });
-                localStorage.setItem("sessionId", res.data.sessionId),
-                  localStorage.setItem("userName", res.data.realName),
-                  localStorage.setItem("roleId", res.data.roleId),
-                  localStorage.setItem(
-                    "systemInnerRoleName",
-                    res.data.systemInnerRoleName
-                  );
-                localStorage.setItem("accountName", res.data.accountName);
+                this.$router.push({ path: "/Home" });
               }
             });
           },
           err => {
-            console.log(err);
+            console.error();
           }
         );
       }
     }
-  },
-  mounted: {
-    //加载请求的axios方法
   }
 };
 </script>
@@ -177,12 +172,13 @@ export default {
   padding-top: 70px;
   padding-right: 30px;
 }
-.code img{
+.code img {
   width: 80px;
   height: 80px;
 }
-.code p{
-color: white;font-size: 1rem;
+.code p {
+  color: white;
+  font-size: 1rem;
 }
 .password {
   margin-top: 20px;
