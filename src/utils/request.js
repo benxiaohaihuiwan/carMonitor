@@ -118,7 +118,7 @@ export default {
 		//		param.sessionId = localStorage.getItem('sessionId')
 		return new Promise((resolve, reject) => {
 			service({
-				headers: heads,
+				headers: "",
 				method: 'get',
 				url,
 				params: param,
@@ -138,11 +138,7 @@ export default {
 	post(url, param, type) {
 		let heads = ''
 		let data = ''
-		console.warn(param)
-		//		param.sessionId = localStorage.getItem('sessionId')
-		console.warn(qs.stringify(param));
-		console.warn(JSON.stringify(param))
-
+		console.log(param);
 		if(type == 'json') {
 			heads = {
 				'Content-Type': 'application/json ; charset=utf-8',
@@ -165,9 +161,8 @@ export default {
 		}
 
 		return new Promise((resolve, reject) => {
-			console.error(resolve)
 			service({
-				headers: heads,
+				headers: "",
 				method: 'post',
 				url,
 				data: data,
@@ -235,30 +230,10 @@ export default {
 	 * msgName  msg名称 
 	 * callback 回调函数
 	 */
-	requestResult(that, res, msgSwitch, msgName, callback) {
-		console.warn(that)
+	requestResult(that, res, callback) {
+		console.log(res.msg);
 		let types = '';
-		let msg = '';
-		if(msgSwitch == 'open') {
-			msg = res.msg
-		} else if(msgSwitch == 'openSuccess') {
-			if(res.code == httpCode.OK.code) {
-				if(httpMsg[res.code][msgName]) {
-					msg = httpMsg[res.code][msgName]
-				} else {
-					msg = res.msg
-				}
-			} else {
-				msg = res.msg
-			}
-		} else {
-			if(httpMsg[res.code][msgName]) {
-				msg = httpMsg[res.code][msgName]
-			} else {
-				msg = res.msg
-			}
-
-		}
+		let msg = res.msg;
 		if(res.code == httpCode.OK.code) {
 			callback()
 			types = 'success'

@@ -1,0 +1,64 @@
+{
+    "code": 200,
+	"msg": "登录成功",
+	"data": {
+		"organizationInfos": [{
+				"organizationId": 123,
+				"name": "无锡远迈有限公司1",
+				"parentId": null
+			},
+			{
+				"organizationId": 124,
+				"name": "无锡远迈有限公司2",
+				"parentId": 123
+			},
+			{
+				"organizationId": 125,
+				"name": "无锡远迈有限公司3",
+				"parentId": 123
+			},
+			{
+				"organizationId": 126,
+				"name": "无锡远迈有限公司4",
+				"parentId": 125
+			}
+		],
+		"vehicleInfos": [{
+				"vehicleId": 123,
+				"licensePlate": "苏BAE112",
+				"organizationId": 123,
+				"onlineState": 1,   
+				"photographState": true, 
+				"videoState": true,
+				"trackState": true 
+			},
+			{
+				"vehicleId": 123,
+				"licensePlate": "苏BAE190",
+				"organizationId": 125,
+				"onlineState": 1,
+				"photographState": true,
+				"videoState": true,
+				"trackState": true
+			},
+			{
+				"vehicleId": 123,
+				"licensePlate": "苏BAE188",
+				"organizationId": 126,
+				"onlineState": 1,
+				"photographState": true,
+				"videoState": true,
+				"trackState": true
+			},
+			{
+				"vehicleId": 123,
+				"licensePlate": "苏BAE114",
+				"organizationId": 123,
+				"onlineState": 1,
+				"photographState": true,
+				"videoState": true,
+				"trackState": true
+			}
+		]
+	}
+}
