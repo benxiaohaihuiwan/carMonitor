@@ -8,7 +8,7 @@
     </el-header>
     <el-container style="height:100%">
         <div ref="abc" class="leftAlarmImage">
-          <img src="../../image/code.png" class="image">
+          <img src="../../image/timeMonitor/alarmCar.png" class="image">
         </div>
         <div style="width:100%">
           <div style="display:inline">
@@ -71,7 +71,6 @@ export default {
 }
 .leftAlarmImage {
   display: flex;
-  background-color: black;
   width: 80px;
   height: 240px;
   align-items: center;

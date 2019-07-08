@@ -26,11 +26,17 @@
           <i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item command="a">黄金糕</el-dropdown-item>
-          <el-dropdown-item command="b">狮子头</el-dropdown-item>
-          <el-dropdown-item command="c">螺蛳粉</el-dropdown-item>
-          <el-dropdown-item command="d" disabled>双皮奶</el-dropdown-item>
-          <el-dropdown-item command="e" divided>蚵仔煎</el-dropdown-item>
+         
+           <el-dropdown-item command="b"><img src="@/image/timeMonitor/satellite.png" />
+            <span>卫星</span></el-dropdown-item>
+          <el-dropdown-item command="b"><img src="@/image/timeMonitor/range.png" />
+            测距</el-dropdown-item>
+           
+          <el-dropdown-item command="c"> <img src="@/image/timeMonitor/clearInfo.png" />
+            清除</el-dropdown-item>
+           
+          <el-dropdown-item command="d" disabled><img src="@/image/timeMonitor/refresh.png" />
+            刷新</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
