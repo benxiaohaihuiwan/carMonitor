@@ -1,6 +1,11 @@
 <template>
-  <el-aside style="height:100%;" id="carInfo" >
-    <div class="showRightButton" id="showArrow" v-show="!optionButtonArrow" @click="handelCarsSeclect">
+  <el-aside style="height:100%;" id="carInfo">
+    <div
+      class="showRightButton"
+      id="showArrow"
+      v-show="!optionButtonArrow"
+      @click="handelCarsSeclect"
+    >
       <img src="../../image/timeMonitor/carArrow.png">
     </div>
     <div class="optionContentShow" v-show="optionButtonArrow">
@@ -19,10 +24,10 @@
           :render-content="renderContent"
         ></el-tree>
         <div class="showLeftArrowButton" id="carInfoArrow" @click="handelLeftCarsSeclect">
-        <img src="../../image/timeMonitor/carLeftArrow.png" />
+          <img src="../../image/timeMonitor/carLeftArrow.png">
         </div>
       </div>
-      <div class="optionBottom" >
+      <div class="optionBottom">
         <option-button></option-button>
       </div>
     </div>
@@ -31,6 +36,8 @@
 
 <script>
 import OptionButton from "./option-button";
+import cars from "../../datas/cars.json";
+
 export default {
   data() {
     return {
@@ -49,44 +56,43 @@ export default {
   components: {
     OptionButton
   },
-  mounted(){
-// document.getElementById("carInfo").style.width="60px";
-
+  mounted() {
+    // document.getElementById("carInfo").style.width="60px";
   },
   methods: {
     handelCarsSeclect() {
       this.optionButtonArrow = !this.optionButtonArrow;
-      
-        document.getElementById("carInfo").style.width="300px";
-        console.log(document.getElementById("carInfo").style.width);
-     
+      document.getElementById("carInfo").style.width = "300px";
+      console.log(document.getElementById("carInfo").style.width);
     },
     handelLeftCarsSeclect() {
-      debugger;
       this.optionButtonArrow = !this.optionButtonArrow;
-      document.getElementById("carInfo").style.width="60px";
-      document.getElementById("showArrow").style.width="60px";
-      
-      console.log('444444');
+      document.getElementById("carInfo").style.width = "60px";
+      document.getElementById("showArrow").style.width = "60px";
     },
     renderContent(h, { node, data, store }) {
-      if (node.data.name.indexOf("泓源建设") == -1) {
-        return (
-          <span class="custom-tree-node">
-            <span style="margin-right:10px">{node.label}</span>
-            <i class="el-icon-s-comment" />
-            <i class="el-icon-camera-solid optoinIcon" />
-            <i class="el-icon-video-camera optoinIcon" />
-            <i class="el-icon-pie-chart optoinIcon_chart" />
-          </span>
-        );
-      } else {
-        return (
-          <span class="custom-tree-node">
-            <span>{node.label}</span>
-          </span>
-        );
+      var hasChild;
+      let organizationIds = cars.data.organizationInfos;
+      let vehicleInfos = cars.data.vehicleInfos;
+      
+      for (let j = 0; j < vehicleInfos.length; j++) {
+        if (node.data.name == vehicleInfos[j].licensePlate) {
+          return (
+            <span class="custom-tree-node carImage">
+              <span style="margin-right:10px">{node.label}</span>
+              <i class="el-icon-s-comment optoinIcon" style="margin-right:10px"></i>
+              <i class="el-icon-camera-solid optoinIcon" style="margin-right:10px"></i>
+              <i class="el-icon-video-camera optoinIcon" style="margin-right:10px"></i>
+              <i class="el-icon-pie-chart optoinIcon_chart" style="margin-right:10px"></i>
+            </span>
+          );
+        }
       }
+      return (
+        <span class="custom-tree-node">
+          <span>{node.label}</span>
+        </span>
+      );
     },
     handleCheckChange(data, checked, indeterminate) {
       console.log(data, checked, indeterminate);
@@ -102,88 +108,88 @@ export default {
       console.log(data);
     },
     loadNode(node, resolve) {
+      var organizationIds = cars.data.organizationInfos;
+      var vehicleInfos = cars.data.vehicleInfos;
+      console.log(this.globalData.vehicleFlag);
       if (node.level === 0) {
-        return resolve([{ name: "无锡泓源建设集团有限公司" }]);
+        for (let i = 0; i < organizationIds.length; i++) {
+          if (organizationIds[i].organizationId == "123") {
+            return resolve([{ name: organizationIds[i].name }]);
+          }
+        }
       }
-      if (node.level > 2) return resolve([]);
+      // if (node.level > 2) return resolve([]);
 
-      var hasChild;
-      if (node.data.name.indexOf("泓源建设") != -1) {
-        hasChild = true;
-      }
+      // var hasChild;
 
       setTimeout(() => {
-        var data;
-        if (hasChild) {
-          if (node.data.name === "无锡泓源建设集团有限公司") {
-            data = [
-              {
-                name: "泓源建设"
-              }
-            ];
+        var data = [];
+        let template = {};
+        if (node.data.name === "无锡远迈有限公司1") {
+          for (let j = 0; j < organizationIds.length; j++) {
+            if (organizationIds[j].parentId == "123") {
+              template.name = organizationIds[j].name;
+              data.push(template);
+            }
+            template = {};
           }
-          if (node.data.name === "泓源建设") {
-            data = [
-              {
-                name: "苏B56555（离开）",
-                leaf: true
-              },
-              {
-                name: "苏B54355（离开）",
-                leaf: true
-              },
-              {
-                name: "苏B65555（离开）",
-                leaf: true
-              },
-              {
-                name: "苏B54355（离开）",
-                leaf: true
-              },
-              {
-                name: "苏B55655（离开）",
-                leaf: true
-              },
-              {
-                name: "苏B54355（离开）",
-                leaf: true
-              },
-              {
-                name: "苏B56555（离开）",
-                leaf: true
-              },
-              {
-                name: "苏B54355（离开）",
-                leaf: true
-              },
-              {
-                name: "苏B55655（离开）",
-                leaf: true
-              },
-              {
-                name: "苏B54355（离开）",
-                leaf: true
-              },
-              {
-                name: "苏B55655（离开）",
-                leaf: true
-              },
-              {
-                name: "苏B54355（离开）",
-                leaf: true
-              },
-              {
-                name: "苏B55655（离开）",
-                leaf: true
-              },
-              {
-                name: "苏B54355（离开）",
-                leaf: true
+          console.dir(this.globalData.vehicleFlag);
+          console.log("=================");
+          // 循环车辆
+          for (let d = 0; d < organizationIds.length; d++) {
+            let vehicleTemplate = {};
+            if (node.data.name === organizationIds[d].name) {
+              for (let e = 0; e < vehicleInfos.length; e++) {
+                if (
+                  organizationIds[d].organizationId ==
+                  vehicleInfos[e].organizationId
+                ) {
+                  vehicleTemplate.name = vehicleInfos[e].licensePlate;
+                  vehicleTemplate.leaf = true;
+                  this.globalData.vehicleFlag = true;
+                  data.push(vehicleTemplate);
+                }
+                vehicleTemplate = {};
               }
-            ];
+            }
           }
+          console.dir(this.globalData.vehicleFlag);
         } else {
-          data = [];
+          for (let a = 0; a < organizationIds.length; a++) {
+            let secTemplate = {};
+            console.dir(node);
+            if (node.data.name === organizationIds[a].name) {
+              for (let k = 0; k < organizationIds.length; k++) {
+                if (
+                  organizationIds[k].parentId != "null" &&
+                  organizationIds[k].parentId != "123" &&
+                  organizationIds[k].parentId ==
+                    organizationIds[a].organizationId
+                ) {
+                  secTemplate.name = organizationIds[k].name;
+                  data.push(secTemplate);
+                }
+                secTemplate = {};
+              }
+            }
+          }
+          // 循环车辆
+          for (let b = 0; b < organizationIds.length; b++) {
+            let vehicleTemplate = {};
+            if (node.data.name === organizationIds[b].name) {
+              for (let c = 0; c < vehicleInfos.length; c++) {
+                if (
+                  organizationIds[b].organizationId ==
+                  vehicleInfos[c].organizationId
+                ) {
+                  vehicleTemplate.name = vehicleInfos[c].licensePlate;
+                  vehicleTemplate.leaf = true;
+                  data.push(vehicleTemplate);
+                }
+                vehicleTemplate = {};
+              }
+            }
+          }
         }
 
         resolve(data);
@@ -194,6 +200,9 @@ export default {
 </script>
 
 <style scoped>
+.optoinIcon{
+  margin-right:10px
+}
 .optionContentShow {
   display: flex;
   flex-direction: column;
@@ -220,7 +229,7 @@ export default {
   position: fixed;
   top: 50%;
 }
-.showLeftArrowButton img{
+.showLeftArrowButton img {
   display: flex;
   flex-direction: row-reverse;
   float: right;

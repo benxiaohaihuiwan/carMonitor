@@ -33,11 +33,12 @@ export default {
     flex-direction: row;
     padding: 0px 20px;
     background-color: #F5F5F5;
+    width:260px;
 }
 .optionButton .option {
     display: flex;
     flex-direction: column;
-    margin: 10px 20px;
+    margin: 10px 13px;
     align-items: center;
 }
 .option .el-button {

@@ -14,12 +14,16 @@
               <car-info-option></car-info-option>
             <el-main>
               <div class="mainContent">
-                <div>
+                <div style="width:300px">
                   <day-data></day-data>
                 </div>
-               <div>
-                 <!-- <horizontal-info></horizontal-info> -->
-                 <!-- <alarm-table></alarm-table> -->
+               <div class="alarmContent">
+                 <div>
+                 <horizontal-info></horizontal-info>
+                 </div>
+                 <div class="alarmTableContent">
+                 <alarm-table></alarm-table>
+                 </div>
                </div>
               </div>
             </el-main>
@@ -68,5 +72,19 @@ export default {
 .containerContent {
   height: 100%;
   /* width: 100%; */
+}
+.mainContent{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* height: 100%; */
+}
+.mainContent .alarmContent {
+  display: flex;
+  flex-direction: column;
+  /* height: 100%; */
+}
+.mainContent .alarmContent alarmTableContent{
+  position: relative;
 }
 </style>

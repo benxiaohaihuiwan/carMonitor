@@ -19,7 +19,7 @@
       </p>
     </div>
     <div class="select-menu">
-      <el-dropdown @command="handleCommand" style="background-color:black;padding:3px 6px">
+      <el-dropdown  style="padding:3px 6px">
         <span class="el-dropdown-link">
           <i class="el-icon-s-cooperation"></i>
           工具箱
@@ -46,17 +46,19 @@ export default {};
 
 <style scoped>
 span:nth-child(even) {
-  padding-right: 10px;
+  padding-right: 6px;
 }
 span:nth-child(odd) {
-  padding: 0 5px;
+  padding: 0 4px;
 }
 .horizontalAll {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  align-items: flex-start;
   margin-right: 20px;
   height: auto;
+  margin-top: 25px;
 }
 .horizontalAll .select-menu {
   margin: 0px 5px;
@@ -65,7 +67,7 @@ span:nth-child(odd) {
   display: inline-block;
   height: 26px;
   line-height: 26px;
-  background-color: black
+  /* background-color: black */
 }
 .fullScreen img{
     width: 26px;

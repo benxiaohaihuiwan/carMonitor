@@ -83,7 +83,7 @@ export default {
 .dayDataAll {
   margin-top: 25px;
   margin-left: 5px;
-  width:30%;
+  width:100%;
   background-color:white
 }
 .dayData {
@@ -125,7 +125,7 @@ hr {
   padding-left: 60px;
   display: flex;
   flex-direction: row;
-  width: 100%;
+  width: 80%;
   flex-wrap: wrap;
 }
 .detail-content {
